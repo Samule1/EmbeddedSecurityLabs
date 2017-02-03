@@ -13,6 +13,10 @@ public class OtpInputStream extends InputStream{
 		key  = k;
 	}
 	
+	public void setKey(String k){
+		key = k;
+	}
+	
 	public char getChar() {
 		return this.letter;
 	}
@@ -88,7 +92,25 @@ public class OtpInputStream extends InputStream{
 		System.out.println("Encrypted Msg : " + test2.GetEncryptedMsg());
 		System.out.println("Decrypted Msg : " + test2.OtpDecryption());
 		
-
+		OtpInputStream Ex3 = new OtpInputStream("XMCKL", "HELLO");
+		Ex3.OtpEncryption();
+		System.out.println("Encrypted Msg : " + Ex3.GetEncryptedMsg());
+		
+		//Ex3.setKey("TRTSH");
+		
+		//System.out.println("Decrypted Msg : " + Ex3.OtpDecryption());
+		
+		Ex3.setKey("RMSRI");
+		
+		System.out.println("Decrypted Msg : " + Ex3.OtpDecryption());
+		
+		Ex3.setKey("TQURI");
+		System.out.println("Decrypted Msg : " + Ex3.OtpDecryption());
+		
+		System.out.println(Math.floorMod((5-17), 26));
+		
+		int nr = (int)'A';
+		System.out.println(nr-65);
 	}
 
 

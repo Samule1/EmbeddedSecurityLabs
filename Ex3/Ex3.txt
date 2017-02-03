@@ -1,0 +1,34 @@
+"HELLO"
+
+Encrypted Msg : EQNVZ
+
+Decrytion with key : TRTSH
+Gives the msg : LZUDS
+
+Finding key for message to be decrypted as : NEVER (14, 5, 22, 5, 18)
+Encrytped msg : 
+
+E Q N V Z
+--------------
+5 17 14 22 26
+
+17 12 10 17 
+
+Q L J Q R
+
+---------For LATER------------
+5 - X % 26 = 11 X=> 20 -> T
+
+5 - X % 26 = 0 X=> 5 -> D 
+
+
+---------For NEVER------------
+5 - X  % 26 = 14  X=> 17  -> X
+
+17 - X % 26 = 5 X=> 12 -> M
+
+14 - X % 26 = 21 X=> 19 -> S
+
+22 - X % 26 = 5 X=> 17-> R
+
+26 - X % 26 = 17 X=> 9 -> I
