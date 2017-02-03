@@ -1,0 +1,10 @@
+p = 7
+q = 11
+n = pq = 77
+w = (p-1)(q-1) = (7-1)(11-1) = 60
+e = 7
+d = 43 
+M = 14
+
+c = 42 (https://www.wolframalpha.com/input/?i=14%5E7+mod+77)
+Decryped m from c = c^d mod 77 = 14 (https://www.wolframalpha.com/input/?i=42%5E43+mod+77)
