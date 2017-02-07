@@ -1,0 +1,33 @@
+The famous operating system Unix was developed in the late
+60's and early 70's. It has inpired the design of more modern
+operating systems such the Linux.
+
+Widely in use today is "Unix time". Unix time is defined as the
+number of seconds elapsed since Thursday, 1 January 1970.
+
+"Unix time is a single signed integer number which increments every second".
+
+Now let us talk about the iphone. Last year there was a bug related to the clock.
+If a user set the time to the lowest allowed which would be: Thursday, 1 January 1970.
+No problem so far. Now we remember the properties of binary numbers:
+
+In a 4 bit system:
+1 0001
+2 0010
+3 0011
+4 0100
+..
+15 1111
+
+Adding 1 to 15 in our 4 bit system would cause an integer overflow
+and we would be back at: 0000.
+
+The same goes for subtracting 1 from 0000, but the other way around
+0000 - 1 --> 1111 wich is the maximum value is our system.
+
+
+The iphone differs from our example in that it is a 64 bit systemm not 4.
+Going back to the scenario above: the time is set to the earliest possible,
+which was ok. But then the system performs some check in its own history,
+not based on a date, but on an absolute value in time. This would cause an
+integer underflow, setting the system to waaaay ahead in the future and: BYE.
