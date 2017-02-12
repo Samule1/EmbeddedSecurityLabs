@@ -1,0 +1,22 @@
+
+https://cacert.org/ 
+
+Gives the error : NET::ERR_CERT_AUTHORITY_INVALID
+
+This error/warning could be caused by one of the following reasons
+
+The third party site certificate is not updated or they run a community-driven
+SSL which isn't trusted by most browsers.
+
+Certificate is not issued by the the third party site.
+
+The third party browser connection is not secure.
+
+It could be serious as the error stats from google chrome, 
+"It is possible that hackers trying to steal your information from 
+cacert.org (for example, passwords, messages or credit cards)."
+
+I found the website from stackoverflow when i did some searches on invalid certificate ssl.
+
+
+
