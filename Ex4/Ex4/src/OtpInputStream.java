@@ -8,11 +8,12 @@ public class OtpInputStream extends InputStream{
 	private String key;
 	private char letter;
 	
+	//Constructor which takes key and text as arguments
 	public OtpInputStream(String k, String text){
 		plainText = text;
 		key  = k;
 	}
-	
+	 
 	public void setKey(String k){
 		key = k;
 	}
@@ -25,12 +26,11 @@ public class OtpInputStream extends InputStream{
 		letter = val;
 	}
 	
-	@Override
+	@Override // Reads the current letter and returns number value
 	public int read() throws IOException {
 		int nr = (int)letter;
 		return nr;
 	}
-	
 	
 	public String GetEncryptedMsg(){
 		return encrypted;
@@ -40,7 +40,7 @@ public class OtpInputStream extends InputStream{
 		encrypted = encMsg;
 	}
 	
-	
+	//One time pad encryption on the message using the key specified in constructor
 	public void OtpEncryption() throws IOException{
 		String encryptedMsg = "";
 		int textInt[] = new int[plainText.length()]; 
@@ -62,7 +62,7 @@ public class OtpInputStream extends InputStream{
 		SetEncryptedMsg(encryptedMsg);
 	}
 
-	
+	//One time pad decrypts using the key from constructor.
 	public String OtpDecryption() throws IOException{
 		String decryptedMsg = "";
 		int textInt[] = new int[plainText.length()];
@@ -96,9 +96,9 @@ public class OtpInputStream extends InputStream{
 		Ex3.OtpEncryption();
 		System.out.println("Encrypted Msg : " + Ex3.GetEncryptedMsg());
 		
-		//Ex3.setKey("TRTSH");
+		Ex3.setKey("TRTSH");
 		
-		//System.out.println("Decrypted Msg : " + Ex3.OtpDecryption());
+		System.out.println("Decrypted Msg : " + Ex3.OtpDecryption());
 		
 		Ex3.setKey("RMSRI");
 		
@@ -107,10 +107,6 @@ public class OtpInputStream extends InputStream{
 		Ex3.setKey("TQURI");
 		System.out.println("Decrypted Msg : " + Ex3.OtpDecryption());
 		
-		System.out.println(Math.floorMod((5-17), 26));
-		
-		int nr = (int)'A';
-		System.out.println(nr-65);
 	}
 
 
