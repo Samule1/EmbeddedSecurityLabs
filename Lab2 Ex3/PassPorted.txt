@@ -1,0 +1,20 @@
+
+
+void mutualAuthenticate( apdu ){
+
+	boolean macOk = checkMac(apdu, key)
+	N = decrypt(apdu, key)
+
+	if(!macOk || N!=myN)
+		return GetStandardizedErrorFor(!macOk, N!=myN)
+
+	return OK
+
+}
+
+The fix is to perform the deecrypt regardless of the mac being ok or not. 
+This will stop the timing leak. The information leak is pruposed to be 
+solved by a standrad for errror messages. 
+
+Source: http://www.cs.bham.ac.uk/~tpc/Papers/PassportTrace.pdf
+
