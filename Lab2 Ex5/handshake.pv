@@ -1,0 +1,72 @@
+type key.
+
+fun senc(bitstring, key): bitstring.
+
+reduc forall m: bitstring, k: key; sdec(senc(m, k), k) = m.
+
+type skey.
+type pkey.
+
+fun pk(skey): pkey.
+fun aenc(bitstring, pkey): bitstring.
+
+reduc forall m: bitstring, k: skey; adec(aenc(m, pk(k)), k) = m.
+
+type sskey.
+type spkey.
+
+fun spk(sskey): spkey.
+fun sign(bitstring, sskey): bitstring.
+
+reduc forall m: bitstring, k: sskey; getmess(sign(m, k)) = m.
+reduc forall m: bitstring, k: sskey; checksign(sign(m, k), spk(k)) = m.
+
+free c: channel.
+free s: bitstring [ private ].
+
+event aliceReceiveKey(key).
+event bobFreshKey(key).
+
+event aliceAccepts(key).
+event bobAccepts(key, pkey, key).
+event aliceTerm(key, pkey).
+event bobTerm(key).
+
+query attacker(s).
+query x: key; event(aliceReceiveKey(x)) ==> event(bobFreshKey(x)).
+
+query skx: key, pky: pkey, n: key; inj-event(aliceTerm(skx,pky)) ==> inj-event(bobAccepts(skx,pky,n)).
+(* The above does not hold for injective version inj-event, meaning
+   that the replay attack on Alice is possible. Fix the protocol so that the 
+   above query verifies also with inj-event. *)
+
+query skx: key; inj-event(bobTerm(skx)) ==> inj-event(aliceAccepts(skx)).
+
+let alice(pkA: pkey, skA: skey, pkB: spkey) =
+  out(c, pkA);
+  new nounce:key;
+  out(c,nounce);
+  in(c, x: bitstring);
+  let sigB = adec(x, skA) in
+  let (=pkA, =pkB, k: key, =nounce) = checksign(sigB, pkB) in
+  event aliceReceiveKey(k);
+  event aliceAccepts(k);
+  out(c, senc(s, k));
+  event aliceTerm(k, pkA).
+
+let bob(pkB: spkey, skB: sskey, pkA: pkey) =
+  in(c, pkX: pkey);
+  new k: key;
+  in(c, nounce:key);
+  event bobFreshKey(k);
+  event bobAccepts(k, pkX, nounce);
+  out(c, aenc(sign((pkX, pkB, k, nounce), skB), pkX));
+  in(c, x:bitstring);
+  let z = sdec(x, k) in 
+  if pkX = pkA then event bobTerm(k).
+
+process
+  new skA: skey; new skB: sskey;
+  let pkA = pk(skA) in out(c, pkA);
+  let pkB = spk(skB) in out(c, pkB);
+  ( (!alice(pkA, skA, pkB)) | (!bob(pkB, skB, pkA)) )
